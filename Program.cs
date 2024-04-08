@@ -96,23 +96,28 @@ namespace Assignment2
         {
             try
             {
+                // Check if the array is null or empty
                 if (nums == null || nums.Length == 0)
                     return 0;
 
-                int k = 1;
+                int k = 1; // Counter to keep track of the unique elements
                 for (int i = 1; i < nums.Length; i++)
                 {
+                    // If the current element is different from the previous one,
+                    // it means we have found a new unique element
                     if (nums[i] != nums[i - 1])
                     {
+                        // Place the unique element in its correct position
                         nums[k] = nums[i];
-                        k++;
+                        k++; // Move to the next position for the next unique element
                     }
                 }
+                // Return the number of unique elements found (k represents the new length of the array)
                 return k;
             }
             catch (Exception)
             {
-                throw;
+                throw; // Rethrow any exceptions that occur within the method
             }
         }
         /* 
@@ -152,22 +157,32 @@ namespace Assignment2
         {
             try
             {
+                // Initialize an index to track non-zero elements
                 int nonZeroIndex = 0;
+
+                // Iterate through the array
                 for (int i = 0; i < nums.Length; i++)
                 {
+                    // If the current element is non-zero
                     if (nums[i] != 0)
                     {
+                        // Move the non-zero element to the left side of the array
                         nums[nonZeroIndex++] = nums[i];
                     }
                 }
+
+                // Fill the remaining elements with zeroes
                 for (int i = nonZeroIndex; i < nums.Length; i++)
                 {
                     nums[i] = 0;
                 }
+
+                // Convert the array to a list and return
                 return nums.ToList();
             }
             catch (Exception)
             {
+                // If an exception occurs, rethrow it
                 throw;
             }
         }
@@ -226,42 +241,51 @@ namespace Assignment2
         {
             try
             {
+                // Sort the input array to make it easier to find triplets
                 Array.Sort(nums);
                 List<IList<int>> result = new List<IList<int>>();
 
+                // Loop through the array
                 for (int i = 0; i < nums.Length - 2; i++)
                 {
-                    if (i > 0 && nums[i] == nums[i - 1]) continue; // Skip same result
+                    // Skip if current element is the same as the previous one
+                    if (i > 0 && nums[i] == nums[i - 1]) continue;
 
                     int left = i + 1, right = nums.Length - 1;
+                    // Use two pointers approach to find two other elements
                     while (left < right)
                     {
                         int sum = nums[i] + nums[left] + nums[right];
+                        // If sum is zero, found a triplet
                         if (sum == 0)
                         {
                             result.Add(new List<int> { nums[i], nums[left], nums[right] });
-                            while (left < right && nums[left] == nums[left + 1]) left++; // Skip same result
-                            while (left < right && nums[right] == nums[right - 1]) right--; // Skip same result
+                            // Skip duplicates for left and right pointers
+                            while (left < right && nums[left] == nums[left + 1]) left++;
+                            while (left < right && nums[right] == nums[right - 1]) right--;
                             left++;
                             right--;
                         }
+                        // If sum is less than zero, move left pointer to increase sum
                         else if (sum < 0)
                         {
                             left++;
                         }
+                        // If sum is greater than zero, move right pointer to decrease sum
                         else
                         {
                             right--;
                         }
                     }
                 }
-                return result;
+                return result; // Return the list of triplets
             }
             catch (Exception)
             {
-                throw;
+                throw; // Re-throw any exceptions
             }
         }
+
         /*
         Self-Reflection :
         To tackle this problem, I employed advanced array manipulation techniques, such as sorting the array and utilizing multiple pointers to identify triplets summing to zero.
@@ -301,26 +325,37 @@ namespace Assignment2
         {
             try
             {
+                // Initialize variables to keep track of maximum count of consecutive ones and current count
                 int maxCount = 0, count = 0;
+
+                // Iterate through each element in the array
                 foreach (int num in nums)
                 {
+                    // If the current element is 1
                     if (num == 1)
                     {
+                        // Increment the count of consecutive ones
                         count++;
+                        // Update the maximum count if necessary
                         maxCount = Math.Max(maxCount, count);
                     }
-                    else
+                    else // If the current element is not 1 (i.e., 0)
                     {
+                        // Reset the count of consecutive ones
                         count = 0;
                     }
                 }
+
+                // Return the maximum count of consecutive ones
                 return maxCount;
             }
             catch (Exception)
             {
+                // If an exception occurs, re-throw it
                 throw;
             }
         }
+
         /*
         Self-Reflection :
 
@@ -360,24 +395,38 @@ namespace Assignment2
         {
             try
             {
+                // Initialize variables for decimalNumber and base value
                 int decimalNumber = 0, baseVal = 1;
+
+                // Store the binary number temporarily for manipulation
                 int temp = binary;
 
+                // Loop until the binary number is completely converted to decimal
                 while (temp > 0)
                 {
+                    // Extract the last digit of the binary number
                     int lastDigit = temp % 10;
+
+                    // Remove the last digit from the binary number
                     temp = temp / 10;
+
+                    // Convert the binary digit to decimal and add to the result
                     decimalNumber += lastDigit * baseVal;
+
+                    // Update the base value for the next binary digit
                     baseVal = baseVal * 2;
                 }
 
+                // Return the final decimal number
                 return decimalNumber;
             }
             catch (Exception)
             {
+                // If an exception occurs, rethrow it
                 throw;
             }
         }
+
         /*
         Self-Reflection :
         The implementation of the solution required understanding the conversion process from binary to decimal representation, thereby expanding my comprehension of number systems.
@@ -420,24 +469,31 @@ namespace Assignment2
         {
             try
             {
+                // If there are less than 2 elements, there can be no gap
                 if (nums.Length < 2)
                     return 0;
 
+                // Sort the array in ascending order
                 Array.Sort(nums);
                 int maxGap = 0;
 
+                // Iterate through the array to find the maximum gap between adjacent elements
                 for (int i = 1; i < nums.Length; i++)
                 {
+                    // Update maxGap with the maximum difference between consecutive elements
                     maxGap = Math.Max(maxGap, nums[i] - nums[i - 1]);
                 }
 
+                // Return the maximum gap found
                 return maxGap;
             }
             catch (Exception)
             {
+                // If an exception occurs, rethrow it
                 throw;
             }
         }
+
         /*
         Self-Reflection :
         The solution for this problem involved the application of mathematical principles, such as determining the spacing between elements and organizing numbers into buckets. This process provided insights into effectively incorporating mathematical concepts into algorithmic solutions.
@@ -482,21 +538,30 @@ namespace Assignment2
         {
             try
             {
+                // Sort the array in ascending order
                 Array.Sort(nums);
+
+                // Start from the end of the array and iterate backwards
                 for (int i = nums.Length - 3; i >= 0; i--)
                 {
+                    // Check if the current triplet forms a valid triangle
                     if (nums[i] + nums[i + 1] > nums[i + 2])
                     {
+                        // If it does, return the perimeter of the triangle
                         return nums[i] + nums[i + 1] + nums[i + 2];
                     }
                 }
+
+                // If no valid triangle is found, return 0
                 return 0;
             }
             catch (Exception)
             {
+                // Catch any exceptions and re-throw them
                 throw;
             }
         }
+
         /*
         Self-Reflection :
 
@@ -554,21 +619,28 @@ namespace Assignment2
         {
             try
             {
+                // Create a StringBuilder instance to manipulate the input string
                 StringBuilder sb = new StringBuilder(s);
+
                 int index;
+
+                // Continue looping until no more occurrences of 'part' are found in the string
                 while ((index = sb.ToString().IndexOf(part)) != -1)
                 {
-
-                   
-                        sb.Remove(index, part.Length);
+                    // Remove the occurrence of 'part' from the StringBuilder
+                    sb.Remove(index, part.Length);
                 }
-                    return sb.ToString();
+
+                // Return the resulting string after removing all occurrences of 'part'
+                return sb.ToString();
             }
             catch (Exception)
             {
+                // If any exception occurs, rethrow it
                 throw;
             }
         }
+
         /*
         Self-Reflection :
 
@@ -584,43 +656,72 @@ namespace Assignment2
         */
         static string ConvertIListToNestedList(IList<IList<int>> input)
         {
+            // Initialize a StringBuilder to efficiently build the resulting string
             var sb = new StringBuilder();
 
+            // Start the main list
             sb.Append("[");
+
+            // Loop through each list in the input list
             for (int i = 0; i < input.Count; i++)
             {
+                // Start a nested list
                 sb.Append('[');
+
+                // Loop through each element in the nested list
                 for (int j = 0; j < input[i].Count; j++)
                 {
+                    // Append the current element to the string
                     sb.Append(input[i][j]);
+
+                    // If it's not the last element in the nested list, add a comma
                     if (j < input[i].Count - 1)
                         sb.Append(",");
                 }
+
+                // Close the nested list
                 sb.Append(']');
+
+                // If it's not the last nested list, add a comma
                 if (i < input.Count - 1)
                     sb.Append(",");
             }
+
+            // Close the main list
             sb.Append("]");
 
+            // Return the final string representation
             return sb.ToString();
         }
+
 
         // Modified ConvertIListToArray Function
         static string ConvertIListToArray(IList<int> input)
         {
+            // Create a StringBuilder to efficiently build the string
             var sb = new StringBuilder();
 
+            // Add the opening square bracket to represent the start of the array
             sb.Append("[");
+
+            // Iterate through each element in the IList
             for (int i = 0; i < input.Count; i++)
             {
+                // Append the current element to the string
                 sb.Append(input[i]);
+
+                // If this is not the last element, add a comma to separate elements
                 if (i < input.Count - 1)
                     sb.Append(",");
             }
+
+            // Add the closing square bracket to represent the end of the array
             sb.Append("]");
 
+            // Convert the StringBuilder to a string and return it
             return sb.ToString();
         }
+
 
     }
 }
